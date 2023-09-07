@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Oneduo\NovaFileManager\Entities;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\fileSystem\AwsS3V3Adapter;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Carbon;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use League\Flysystem\UnableToRetrieveMetadata;
@@ -170,7 +170,7 @@ abstract class Entity implements Arrayable, EntityContract
             );
         }
 
-        $supportsSignedUrls = $this->manager->filesystem() instanceof AwsS3V3Adapter;
+        $supportsSignedUrls = $this->manager->filesystem() instanceof FilesystemAdapter;
 
         // signed urls are only supported on S3 disks
         if ($supportsSignedUrls && config('nova-file-manager.url_signing.enabled')) {
